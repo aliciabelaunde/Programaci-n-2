@@ -1,0 +1,96 @@
+/* Shell Sort: mejora al de insercion
+5,4,1,2,3,8,9,7 = 8 --> Paso 
+1. Dividimos a la mitad el tamano del array 8/2 = 4
+2. Comparamos el primer elemento (5), con el que esta a cuatro numeros de el
+3. 5 > 3? Si, entonces los intercambiamos
+3,4,1,2,5,8,9,7
+4. Pasamos con el siguiente numero (4) y lo comparamos con el de 4 numeros despues el
+5. 4 > 8? No, entonces pasamos al otro numero
+6. Hacemos lo mismo con el resto:
+    1 > 9? No --> no intercambiamos
+    2 > 7? No --> no intercambiamos
+7. Como ya no hay numeros con que comparar, reducimos el paso a la mitad
+4/2 = 2 --> 3,4,1,2,5,8,9,7
+    3 > 1? Si --> intercambiamos = 1,4,3,2,5,8,9,7
+    4 > 2? Si --> intercambiamos = 1,2,3,4,5,8,9,7
+    3 > 5? No --> no intercambiamos = 1,2,3,4,5,8,9,7
+    4 > 8? No --> no intercambiamos = 1,2,3,4,5,8,9,7
+    5 > 9? No --> no intercambiamos = 1,2,3,4,5,8,9,7
+    8 > 7? Si --> intercambiamos = 1,2,3,4,5,7,9,8
+8. El 9 no tiene con que comparar, volvemos a dividir:
+2/2 = 1
+9. Iteraciones:
+    1 > 2? No --> no intercambiamos = 1,2,3,4,5,7,9,8
+    2 > 3? No --> no intercambiamos = 1,2,3,4,5,7,9,8
+    3 > 4? No --> no intercambiamos = 1,2,3,4,5,7,9,8
+    4 > 5? No --> no intercambiamos = 1,2,3,4,5,7,9,8
+    5 > 7? No --> no intercambiamos = 1,2,3,4,5,7,9,8
+    7 > 9? No --> no intercambiamos = 1,2,3,4,5,7,9,8
+    9 > 8? Si --> intercambiamos = 1,2,3,4,5,7,8,9
+10. Dividimos 1/2 = 0,5 --> solamente tomamos el valor entero
+*/ 
+
+#include <iostream>
+using namespace std;
+
+class ShellSort {
+private:
+    int arr[100];
+    int n;
+
+public:
+
+    void ingresar() {
+        cout << "Ingrese la cantidad de elementos: ";
+        cin >> n;
+
+        cout << "Ingrese los elementos:\n";
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+    }
+
+    void mostrar() {
+        for (int i = 0; i < n; i++) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+
+    void ordenar() {
+        int paso = n / 2;
+
+        while (paso > 0) {
+            for (int i = paso; i < n; i++) {
+                int j = i - paso;
+
+                while (j >= 0) {
+                    if (arr[j] > arr[j + paso]) {
+                        int aux = arr[j];
+                        arr[j] = arr[j + paso];
+                        arr[j + paso] = aux;
+                    }
+                    j = j - paso;
+                }
+            }
+
+            paso = paso / 2;
+        }
+    }
+};
+
+int main() {
+    ShellSort s;
+
+    s.ingresar();
+
+    cout << "\nArreglo original:\n";
+    s.mostrar();
+
+    s.ordenar();
+
+    cout << "\nArreglo ordenado:\n";
+    s.mostrar();
+
+    return 0;
+}
