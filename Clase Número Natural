@@ -1,0 +1,293 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class NumeroNatural {
+
+private:
+    int valor;
+
+    // Función para intercambiar dos números
+    void intercambiar(int &numeroA, int &numeroB) {
+
+        int temporal = numeroA;
+        numeroA = numeroB;
+        numeroB = temporal;
+    }
+
+    // Función de partición para Quick Sort
+    int particion(int arregloDigitos[], int inicio, int fin) {
+
+        int posicionPivote = (inicio + fin) / 2;
+        int pivote = arregloDigitos[posicionPivote];
+
+        int izquierda = inicio;
+        int derecha = fin;
+
+        while (izquierda <= derecha) {
+
+            while (arregloDigitos[izquierda] < pivote) {
+                izquierda = izquierda + 1;
+            }
+
+            while (arregloDigitos[derecha] > pivote) {
+                derecha = derecha - 1;
+            }
+
+            if (izquierda <= derecha) {
+
+                intercambiar(arregloDigitos[izquierda], arregloDigitos[derecha]);
+
+                izquierda = izquierda + 1;
+                derecha = derecha - 1;
+            }
+        }
+
+        return izquierda;
+    }
+
+    // Quick Sort recursivo
+    void quickSort(int arregloDigitos[], int inicio, int fin) {
+
+        if (inicio >= fin) {
+            return;
+        }
+
+        int indiceDivision = particion(arregloDigitos, inicio, fin);
+
+        quickSort(arregloDigitos, inicio, indiceDivision - 1);
+        quickSort(arregloDigitos, indiceDivision, fin);
+    }
+
+public:
+
+    // Constructor
+    NumeroNatural(int numeroInicial) {
+
+        valor = numeroInicial;
+    }
+
+    // Getter
+    int getValor() {
+        return valor;
+    }
+
+    // Setter
+    void setValor(int nuevoValor) {
+        valor = nuevoValor;
+    }
+
+    // Cantidad de dígitos
+    int cantidadDigitos() {
+
+        int numeroTemporal = valor;
+        int contadorDigitos = 0;
+
+        if (numeroTemporal == 0) {
+            return 1;
+        }
+
+        while (numeroTemporal > 0) {
+
+            numeroTemporal = numeroTemporal / 10;
+            contadorDigitos = contadorDigitos + 1;
+        }
+
+        return contadorDigitos;
+    }
+
+    // Insertar dígito en una posición
+    void insertarDigito(int digitoInsertar, int posicion) {
+
+        int numeroTemporal = valor;
+        int totalDigitos = cantidadDigitos();
+
+        int potencia = 1;
+        int contador = 0;
+
+        while (contador < totalDigitos - posicion + 1) {
+
+            potencia = potencia * 10;
+            contador = contador + 1;
+        }
+
+        int parteIzquierda = numeroTemporal / potencia;
+        int parteDerecha = numeroTemporal % potencia;
+
+        int nuevoNumero = parteIzquierda * (potencia * 10);
+        nuevoNumero = nuevoNumero + digitoInsertar * potencia;
+        nuevoNumero = nuevoNumero + parteDerecha;
+
+        valor = nuevoNumero;
+    }
+
+    // Ordenar dígitos con Shell Sort
+    void ordenarShell() {
+
+        int arregloDigitos[10];
+        int cantidadDigitos = 0;
+
+        int numeroTemporal = valor;
+
+        while (numeroTemporal > 0) {
+
+            int digito = numeroTemporal % 10;
+
+            arregloDigitos[cantidadDigitos] = digito;
+
+            numeroTemporal = numeroTemporal / 10;
+
+            cantidadDigitos = cantidadDigitos + 1;
+        }
+
+        int paso = cantidadDigitos / 2;
+
+        while (paso > 0) {
+
+            int i = paso;
+
+            while (i < cantidadDigitos) {
+
+                int j = i - paso;
+
+                while (j >= 0) {
+
+                    if (arregloDigitos[j] > arregloDigitos[j + paso]) {
+
+                        int temporal = arregloDigitos[j];
+
+                        arregloDigitos[j] = arregloDigitos[j + paso];
+
+                        arregloDigitos[j + paso] = temporal;
+                    }
+
+                    j = j - paso;
+                }
+
+                i = i + 1;
+            }
+
+            paso = paso / 2;
+        }
+
+        int nuevoNumero = 0;
+
+        int indice = cantidadDigitos - 1;
+
+        while (indice >= 0) {
+
+            nuevoNumero = nuevoNumero * 10 + arregloDigitos[indice];
+
+            indice = indice - 1;
+        }
+
+        valor = nuevoNumero;
+    }
+
+    // Ordenar dígitos con Quick Sort
+    void ordenarQuick() {
+
+        int arregloDigitos[10];
+        int cantidadDigitos = 0;
+
+        int numeroTemporal = valor;
+
+        while (numeroTemporal > 0) {
+
+            int digito = numeroTemporal % 10;
+
+            arregloDigitos[cantidadDigitos] = digito;
+
+            numeroTemporal = numeroTemporal / 10;
+
+            cantidadDigitos = cantidadDigitos + 1;
+        }
+
+        quickSort(arregloDigitos, 0, cantidadDigitos - 1);
+
+        int nuevoNumero = 0;
+
+        int indice = cantidadDigitos - 1;
+
+        while (indice >= 0) {
+
+            nuevoNumero = nuevoNumero * 10 + arregloDigitos[indice];
+
+            indice = indice - 1;
+        }
+
+        valor = nuevoNumero;
+    }
+    
+    string aLiteral() {
+	    if (valor == 0) return "cero";
+	    if (valor == 100) return "cien";
+	
+	    string unidades[] = {"", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"};
+	    string especiales[] = {"diez", "once", "doce", "trece", "catorce", "quince", "dieciseis", "diecisiete", "dieciocho", "diecinueve"};
+	    string decenas[] = {"", "", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"};
+	    string centenas[] = {"", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"};
+	
+	    int numero = valor;
+	
+	    int c = numero / 100;        
+	    int d = (numero % 100) / 10; 
+	    int u = numero % 10;         
+	
+	    string resultado = "";
+	
+	    if (c > 0) {
+	        resultado += centenas[c] + " ";
+	    }
+	
+	    int du = numero % 100;
+	
+	    if (du >= 10 && du <= 19) {
+	        resultado += especiales[du - 10];
+	    } else {
+	        if (d > 0) {
+	            resultado += decenas[d];
+	        }
+	
+	        if (d > 2 && u > 0) {
+	            resultado += " y ";
+	        }
+	
+	        if (u > 0) {
+	            resultado += unidades[u];
+	        }
+	    }
+	
+	    if (!resultado.empty() && resultado[resultado.size() - 1] == ' ') {
+	        resultado = resultado.substr(0, resultado.size() - 1);
+	    }
+	
+	    return resultado;
+	}
+
+};
+
+int main() {
+
+    NumeroNatural numero(78291);
+
+    cout << "Numero original: " << numero.getValor() << endl;
+
+    cout << "Cantidad de digitos: " << numero.cantidadDigitos() << endl;
+
+    numero.insertarDigito(5, 3);
+
+    cout << "Numero despues de insertar digito: " << numero.getValor() << endl;
+
+    numero.ordenarShell();
+
+    cout << "Numero ordenado con Shell Sort: " << numero.getValor() << endl;
+
+    numero.ordenarQuick();
+
+    cout << "Numero ordenado con Quick Sort: " << numero.getValor() << endl;
+    
+    numero.aLiteral();
+    
+    cout << "Numero en literal: " << numero.getValor() << endl;
+}
