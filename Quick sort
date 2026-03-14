@@ -1,39 +1,118 @@
-using System;
+/* 7,2,1,6,4,5,3,8 = 8
+1. Elegimos un pivote, puede ser cualquiera del arreglo, pero lo recomendado'
+es el 1ero, el ultimo o el del medio
+2. Elegimos el del medio 8/2 = 4 --> 6 pivote
+3. Declaramos las variables i y j, que deben estar en los extremos
+i --> 7
+j --> 8
+4. Comparamos los valores de i y de j con el pivote
+    - 7 > 6? Si --> buscamos un valor menor que el pivote del lado derecho
+    * 8 < 6? No --> movemos el indice j hacia el lado derecho
+    * 3 < 6? Si --> cumple la condicion: un valor mayor del lado iziquierdo y uno menor del lado derecho
+    Entonces: intercambiamos 7 y 3
+    3,2,1,6,4,5,7,8
+      ^   ^   ^
+      i   p   j
+    - 2 > 6? No --> no cumple la condicion, recorremos
+    3,2,1,6,4,5,7,8
+        ^ ^   ^
+        i p   j
+    - 1 > 6? No --> no cumple la condicion y ya no se puede recorrer, seguimos con la j
+    * 5 < 6? Si --> pero como no se cumple la condicion, se intercambiamos con el pivote
+    Resultado: 3,2,1,5,4,6,7,8
+                   ^ ^   ^
+                   i p   j
+    Recorremos: 3,2,1,5,4,6,7,8
+                    ^ ^ ^
+                    i p j
+    * 4 < 5? Si --> como no se puede intercambiar i:
+    3,2,1,4,5,6,7,8
+        ^ ^ ^
+        i p j
+    Nos quedamos con dos arreglos, debido a que el de la derecha ya está ordenado, ya no es necesario,
+    aunque el algoritmo si lo analizará
+    3,2,1
+    ^ ^ ^
+    i p j --: tomamos de pivote el 2
+    - 3 > 2? Si
+    - 1 < 2? Si
+    intercambiamos
+    1,2,3,4,5,6,7,8
+*/  
 
-class QuickSort
-{
-    public static void Sort(int[] arr, int inicio, int fin)
-    {
-        if (inicio < fin)
-        {
-            int pivote = Particion(arr, inicio, fin);
+#include <iostream>
+using namespace std;
 
-            Sort(arr, inicio, pivote - 1);
-            Sort(arr, pivote + 1, fin);
-        }
+class QuickSort {
+private:
+    int arr[8] = {7,2,1,6,4,5,3,8};
+    int n = 8;
+
+    void intercambiar(int &a, int &b) {
+        int temp = a;
+        a = b;
+        b = temp;
     }
 
-    static int Particion(int[] arr, int inicio, int fin)
-    {
-        int pivote = arr[fin];
-        int i = inicio - 1;
+    int particion(int inicio, int fin) {
+        int pivote = arr[(inicio + fin) / 2]; // pivote del medio
+        int i = inicio;
+        int j = fin;
 
-        for (int j = inicio; j < fin; j++)
-        {
-            if (arr[j] < pivote)
-            {
+        while (i <= j) {
+
+            while (arr[i] < pivote) {
                 i++;
+            }
 
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+            while (arr[j] > pivote) {
+                j--;
+            }
+
+            if (i <= j) {
+                intercambiar(arr[i], arr[j]);
+                i++;
+                j--;
             }
         }
 
-        int temp2 = arr[i + 1];
-        arr[i + 1] = arr[fin];
-        arr[fin] = temp2;
-
-        return i + 1;
+        return i;
     }
+
+    void quicksort(int inicio, int fin) {
+        if (inicio >= fin)
+            return;
+
+        int indice = particion(inicio, fin);
+
+        quicksort(inicio, indice - 1);
+        quicksort(indice, fin);
+    }
+
+public:
+    void ordenar() {
+        quicksort(0, n - 1);
+    }
+
+    void mostrar() {
+        for(int i = 0; i < n; i++) {
+            cout << arr[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+
+    QuickSort qs;
+
+    cout << "Arreglo original:\n";
+    qs.mostrar();
+
+    qs.ordenar();
+
+    cout << "Arreglo ordenado:\n";
+    qs.mostrar();
+
+    return 0;
 }
