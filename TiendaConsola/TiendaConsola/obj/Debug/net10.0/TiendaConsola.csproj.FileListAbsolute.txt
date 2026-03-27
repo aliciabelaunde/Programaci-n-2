@@ -1,0 +1,14 @@
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\bin\Debug\net10.0\TiendaConsola.exe
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\bin\Debug\net10.0\TiendaConsola.deps.json
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\bin\Debug\net10.0\TiendaConsola.runtimeconfig.json
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\bin\Debug\net10.0\TiendaConsola.dll
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\bin\Debug\net10.0\TiendaConsola.pdb
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\TiendaConsola.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\TiendaConsola.AssemblyInfoInputs.cache
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\TiendaConsola.AssemblyInfo.cs
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\TiendaConsola.csproj.CoreCompileInputs.cache
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\TiendaConsola.dll
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\refint\TiendaConsola.dll
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\TiendaConsola.pdb
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\TiendaConsola.genruntimeconfig.cache
+C:\Users\alici\RiderProjects\TiendaConsola\TiendaConsola\obj\Debug\net10.0\ref\TiendaConsola.dll
